@@ -24,14 +24,31 @@ class ViewController: UIViewController {
     
     let winArray = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [3, 5, 7]]
     
-    var xWins = 0
-    var oWins = 0
-    var ties = 0
+    var xWins = 0 {
+        didSet{
+           xWinsLabel.text = String(xWins)
+        }
+    }
+    var oWins = 0 {
+        didSet{
+            oWinsLabel.text = String(oWins)
+        }
+    }
+        
+    var ties = 0{
+        didSet{
+           tiesLabel.text = String(ties)
+        }
+    }
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,10 +79,8 @@ class ViewController: UIViewController {
     func playerDidWin(player: TurnType){
         if player == .X {
             xWins += 1
-            xWinsLabel.text = String(xWins)
         }else{
             oWins += 1
-            oWinsLabel.text = String(oWins)
         }
         newGame()
         print("The winner is: \(player.rawValue)")
@@ -77,6 +92,13 @@ class ViewController: UIViewController {
             button!.setTitle(nil, forState: UIControlState.Normal)
             button?.enabled = true
         }
+    }
+    
+    @IBAction func reset(sender: AnyObject) {
+        xWins = 0
+        oWins = 0
+        ties = 0
+        newGame()
     }
     
 }
